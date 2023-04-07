@@ -10,6 +10,7 @@ import Login from "../../modules/Login";
 import {GetDefaultState} from "../../modules/getDefaultState";
 import Orders from "../../modules/orders";
 import {TypeOfWorkAdd} from "../../modules/typeOfWork/add";
+import {UserList} from "../../modules/userList";
 
 export const Routes = [
     {
@@ -51,6 +52,14 @@ export const Routes = [
                             {
                                 path: "/typeWork/add",
                                 element: <TypeOfWorkAdd/>
+                            },
+                            {
+                                path: "/user/list",
+                                element: <UserList/>,
+                            },
+                            {
+                                path: "/user/edit",
+                                element: <UserAdd/>,
                             }
                         ]
                     }

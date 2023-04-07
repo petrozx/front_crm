@@ -17,21 +17,7 @@ import {login} from "../store/slice/auth";
 import {useRole} from "../util/hook";
 import AdminMenu from "./adminMenu";
 import {Button} from "@mui/material";
-
-const pages = [
-        {
-            name: 'Компании',
-            href: '/company'
-        },
-        {
-            name: 'Заявки',
-            href: '/orders'
-        },
-        {
-            name: 'Новая заявка',
-            href: '/order/add'
-        }
-    ];
+import {MenuKnob} from "./menuKnobe";
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -51,6 +37,21 @@ function ResponsiveAppBar() {
         dispatch(login())
         navigate('/login', {replace: true})
     }
+
+    const pages = [
+        {
+            name: 'Компании',
+            href: '/company'
+        },
+        {
+            name: 'Заявки',
+            href: '/orders'
+        },
+        {
+            name: 'Новая заявка',
+            href: '/order/add'
+        }
+    ];
 
     return (
         <>
@@ -108,11 +109,7 @@ function ResponsiveAppBar() {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <Link key={page.name} style={{textDecoration: 'none', color: 'white'}} to={page.href}>
-                                        <MenuItem>
-                                            <Typography textAlign="center">{page.name}</Typography>
-                                        </MenuItem>
-                                    </Link>
+                                    <MenuKnob key={page.href} page={page}/>
                                 ))}
                             </Menu>
                         </Box>

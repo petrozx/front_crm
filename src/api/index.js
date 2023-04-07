@@ -20,6 +20,41 @@ export const Api = {
         return instance.post('/order/add', data, {
             headers: token
         }).then(r => r.data)
+    },
+    saveCompany(data, token) {
+        return instance.post('/companies/add', data, {
+            headers: token
+        })
+    },
+    getCompanies(token) {
+        return instance.get('/companies', {
+            headers: token
+        })
+    },
+    saveUser(data, token) {
+        return instance.post('/user/register', data, {
+            headers: token
+        })
+    },
+    getOrders(token) {
+        return instance.get("/orders", {
+            headers: token
+        })
+    },
+    getUsers(token) {
+        return instance.get("/users", {
+            headers: token
+        })
+    },
+    allSeen(token) {
+        return instance.get("/seen", {
+            headers: token
+        })
+    },
+    updateUser(data, token) {
+        return instance.put("/user", data, {
+            headers: token
+        })
     }
 }
 

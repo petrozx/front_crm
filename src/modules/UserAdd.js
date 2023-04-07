@@ -1,18 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import CustomizedHook from "./CompaniesManySellect"
 import {Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import {matchIsValidTel, MuiTelInput} from "mui-tel-input";
+import {useCompanies, useToken} from "../util/hook";
+import {Api} from "../api";
+import {useLocation} from "react-router-dom";
 
 export default function UserAdd() {
-    const [companies, setCompanies] = useState([])
+    const props = useLocation();
+    const companies = useCompanies()
     const [validatePhone, setValidatePhone] = useState(false)
-    const [state, setState] = useState({
-        id: '',
+    const [state, setState] = useState(props.state?props.state:{
+        user_id: '',
         username: '',
         password: '',
         role: '',
         userAttribute: '',
+        userAttr_id: '',
         companyId: [],
         firstName: '',
         surname: '',
@@ -22,13 +27,6 @@ export default function UserAdd() {
         passport: '',
     })
 
-    const companiesRequest = async () => {
-        await fetch('http://localhost:8080/api/v1/companies', {
-            headers: {'jwt-token': localStorage.getItem('jwt-token')}
-        })
-            .then( r => r.json())
-            .then(json => setCompanies(json))
-    }
     const roles = [
         {value: 'Администратор',
         type: 'admin'
@@ -37,13 +35,13 @@ export default function UserAdd() {
         type: 'manager'
         }
     ]
+    const token = useToken()
     const handleChange = (event) => {
         setState({...state, [event.target.name]: event.target.value})
-        console.log(state);
     };
 
     const handleChangeCompanyId = (value) => {
-        setState({...state, companyId: value.map(e => e.id)})
+        setState({...state, companyId: value.map(e => e.companyID)})
     }
 
     const handleChangeMobilePhone = (value) => {
@@ -55,16 +53,13 @@ export default function UserAdd() {
     }
 
     function handleSubmit() {
-        const json = JSON.stringify(state)
-        console.log(json);
-        fetch('http://localhost:8080/api/v1/user/register', {
-            method: 'POST',
-            body: json,
-            headers: {'jwt-token' : localStorage.getItem('jwt-token')}
-        }).then(resp => resp.ok? console.log('ok') : console.log("err"))
+        if(!state.method) {
+            Api.saveUser(state, token).then(r => console.log(r.data))
+        } else {
+            Api.updateUser(state, token).then(r => console.log(r.data))
+        }
     }
 
-    useEffect(() => companiesRequest, [])
     return (
         <Container
             maxWidth={'md'}
@@ -81,7 +76,7 @@ export default function UserAdd() {
                 spacing={2}
             >
                 <Grid item md={6}>
-                    <CustomizedHook companies={companies} setC={handleChangeCompanyId}/>
+                    <CustomizedHook companies={companies} value={state.companyId} setC={handleChangeCompanyId}/>
                 </Grid>
                 <Grid item md={6}>
                     <FormControl fullWidth>

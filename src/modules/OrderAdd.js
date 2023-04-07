@@ -23,7 +23,7 @@ export default function OrderAdd() {
     const [typeOfWorks, setTypeOfWorks] = useState([])
     const token = useToken()
     const [state, setState] = useState({
-        id: '',
+        orderID: '',
         typeOfWork: '',
         announcedDateOfWork: dayjs(new Date()).format("YYYY-MM-DDTHH:mm"),
         numberOfSeal: '',
@@ -94,7 +94,7 @@ export default function OrderAdd() {
                             >
                                 {
                                     companies?
-                                        companies.map(comp => <MenuItem key={comp.id} value={comp.id}>{comp.name}</MenuItem>)
+                                        companies.map(comp => <MenuItem key={comp.companyID} value={comp.companyID}>{comp.name}</MenuItem>)
                                         : <MenuItem disabled >Компании отсутствуют</MenuItem>
                                 }
                             </Select>

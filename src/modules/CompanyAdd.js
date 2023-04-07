@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 import {Button, Container, FormControl, Grid, TextField, Typography} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import {Api} from "../api";
+import {useToken} from "../util/hook";
+import {useDispatch} from "react-redux";
+import {addCompany} from "../store/slice/company";
 
 export default function CompanyAdd() {
     const [state, setState] = useState({
@@ -9,13 +13,15 @@ export default function CompanyAdd() {
         inn: '',
         ogrn: '',
     })
+    const token = useToken()
+    const dispatch = useDispatch()
 
     const handleChange = (event) => {
         setState({...state, [event.target.name]: event.target.value})
     };
 
     const handleSubmit = () => {
-        console.log(JSON.stringify(state))
+        Api.saveCompany(state, token).then(r => dispatch(addCompany(r.data)))
     }
     return (
         <Container

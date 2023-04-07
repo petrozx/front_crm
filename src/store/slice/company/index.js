@@ -10,9 +10,12 @@ export const companySlice = createSlice({
     reducers: {
         setCompany(state, action) {
             state.companies = action.payload
+        },
+        addCompany(state, action) {
+            state.companies.push(action.payload)
         }
     }
 })
 
-export const {setCompany} = companySlice.actions
+export const {setCompany, addCompany} = companySlice.actions
 export default companySlice.reducer

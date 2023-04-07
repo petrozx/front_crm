@@ -86,27 +86,39 @@ export default function AdminMenu() {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} disableRipple>
-                    <EditIcon />
-                    <Link
-                        style={{textDecoration: 'none', color: 'inherit'}}
-                        to={"/typeWork/add"}>
-                        Добавить тип работ
-                    </Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    <FileCopyIcon />
-                    Duplicate
-                </MenuItem>
+                <Link
+                    style={{textDecoration: 'none', color: 'inherit'}}
+                    to={"/typeWork/add"}>
+                    <MenuItem onClick={handleClose} disableRipple>
+                        <EditIcon />
+                            Добавить тип работ
+                    </MenuItem>
+                </Link>
+                <Link
+                    style={{textDecoration: 'none', color: 'inherit'}}
+                    to={"/user/add"}>
+                    <MenuItem onClick={handleClose} disableRipple>
+                        <ArchiveIcon />
+                            Добавить пользователя
+                    </MenuItem>
+                </Link>
                 <Divider sx={{ my: 0.5 }} />
-                <MenuItem onClick={handleClose} disableRipple>
-                    <ArchiveIcon />
-                    Archive
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    <MoreHorizIcon />
-                    More
-                </MenuItem>
+                <Link
+                    style={{textDecoration: 'none', color: 'inherit'}}
+                    to={"/company/add"}>
+                    <MenuItem onClick={handleClose} disableRipple>
+                        <MoreHorizIcon />
+                        Добавить компанию
+                    </MenuItem>
+                </Link>
+                <Link
+                        style={{textDecoration: 'none', color: 'inherit'}}
+                        to={"/user/list"}>
+                    <MenuItem onClick={handleClose} disableRipple>
+                        <MoreHorizIcon />
+                            Пользователи
+                    </MenuItem>
+                </Link>
             </StyledMenu>
         </>
     );
